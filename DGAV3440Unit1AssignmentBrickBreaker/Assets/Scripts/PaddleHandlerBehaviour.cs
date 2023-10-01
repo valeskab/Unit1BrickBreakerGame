@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PaddleHandlerBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float paddleSpeed = 5f;
+    private Rigidbody paddleRigidbody;
+
+    private void Start()
     {
-        
+        paddleRigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        // Get input for paddle movement
+        float horizontalInput = Input.GetAxis("Horizontal");
         
-        Debug.Log(touchPosition);
+        // Move the paddle
+        Vector3 paddleVelocity = new Vector3(horizontalInput * paddleSpeed, 0f, 0f);
+        paddleRigidbody.velocity = paddleVelocity;
     }
 }
